@@ -4314,7 +4314,10 @@ var assetLoader = (function(){
 		var xhr = new XMLHttpRequest();
 		xhr.open('GET', path, true);
 		// set responseType after calling open or IE will break.
-		xhr.responseType = "json";
+		try {
+			// This line crashes on Android WebView prior to KitKat
+			xhr.responseType = "json";
+		} catch (err) {}
 	    xhr.send();
 	    xhr.onreadystatechange = function () {
 	        if (xhr.readyState == 4) {
